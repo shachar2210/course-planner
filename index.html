@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="UTF-8" />
+    <title>מתכנן תואר</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <main dir="rtl">
+        <h1 id="app-title">מתכנן תואר</h1>
+
+        <!-- Mode switch: preset program / custom program -->
+        <section id="mode-switch">
+            <button id="preset-mode-btn" class="mode-btn active">תואר לדוגמה</button>
+            <button id="custom-mode-btn" class="mode-btn">תכנית מותאמת אישית</button>
+        </section>
+
+        <!-- General info about the currently selected program -->
+        <section id="program-info">
+            <h2 id="program-name"></h2>
+            <p id="program-description"></p>
+        </section>
+        
+        <!-- Elective-required course selection (preset program mode only) -->
+        <section id="electives-section">
+            <h3>קורסי בחירה חובה</h3>
+            <p>בחר 3 קורסים לפחות אחד תכנותי (תכנותי = ⚙):</p>
+            <div id="electives-container"></div>
+            <p id="electives-warning" class="warning"></p>
+        </section>
+
+        <!-- Custom program builder (visible only in custom mode) -->
+        <section id="custom-builder" class="hidden">
+            <h3>הגדרת קורסים לתכנית מותאמת אישית</h3>
+
+            <div class="form-row">
+                <label for="custom-course-name">שם קורס:</label>
+                <input type="text" id="custom-course-name" placeholder="למשל: לוגיקה למדעי המחשב" />
+            </div>
+
+            <div class="form-row">
+                <label for="custom-course-prereqs">תנאי קדם (אופציונלי):</label>
+                <select id="custom-course-prereqs" multiple></select>
+                <small>להוספת כמה תנאי קדם – החזק Ctrl (או ⌘ במק) ובחר כמה.</small>
+            </div>
+
+            <button id="add-custom-course-btn">הוסף קורס</button>
+            <p id="custom-error" class="warning"></p>
+
+            <h4>קורסים מוגדרים בתכנית המותאמת:</h4>
+            <ul id="custom-course-list"></ul>
+        </section>
+
+        <!-- Course list + checkboxes -->
+        <section id="courses-section">
+            <h3>קורסים בתכנית הנוכחית</h3>
+            <p>סמן את הקורסים שכבר עשית:</p>
+            <div id="courses-container">
+                <!-- JS will inject the course checkboxes here -->
+            </div>
+        </section>
+
+        <!-- Actions -->
+        <section id="actions-section">
+            <button id="calc-available-btn">חשב קורסים זמינים וסדר תואר</button>
+            <button id="reset-btn">איפוס סימונים ותוצאות</button>
+        </section>
+
+        <!-- Courses currently available based on completed prerequisites -->
+        <section id="results-section">
+            <h3>קורסים שאתה יכול לקחת עכשיו</h3>
+            <ul id="available-courses-list">
+                <!-- JS will render the available courses here -->
+            </ul>
+        </section>
+
+        <!-- Full topological order of all courses -->
+        <section id="order-section">
+            <h3>סדר מומלץ של כל הקורסים (Topological Sort)</h3>
+            <p id="cycle-warning" class="warning"></p>
+            <ul id="full-order-list">
+                <!-- JS will render the ordered course list here -->
+            </ul>
+            <p class="legend">
+                ✅ כבר עשית &nbsp;&nbsp; 🟡 אפשר לקחת עכשיו &nbsp;&nbsp; 🔒 עדיין לא זמין
+            </p>
+        </section>
+
+        <section id="semester-plan-section">
+            <h3>חלוקה מוצעת ל־3 שנים (6 סמסטרים)</h3>
+            <p class="legend">
+                זהו תכנון גס בלבד: עד כ־5 קורסים לסמסטר, בלי שקלול נק&quot;ז, עומס תרגילים או קורסים כלליים.
+            </p>
+            <p id="semester-plan-warning" class="warning"></p>
+            <div id="semester-plan-container"></div>
+        </section>
+
+    </main>
+
+    <script src="main.js" defer></script>
+</body>
+</html>
